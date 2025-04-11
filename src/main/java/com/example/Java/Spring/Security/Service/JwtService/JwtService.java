@@ -55,13 +55,14 @@ public class JwtService {
 
     /**
      * This Java method generateToken takes a UserDetails object (from Spring Security, containing user information) and creates a JWT (JSON Web Token).
-     * 1. It starts building the JWT using Jwts.builder().
-     * 2. setSubject(user.getUsername()) sets the "subject" claim of the JWT to the user's username.
-     * 3. claim("authorities", populateAuthorities(user.getAuthorities())) adds a custom claim named "authorities" containing a comma-separated string of the user's roles/permissions, obtained by calling the populateAuthorities method.
-     * 4. setIssuedAt(new Date(System.currentTimeMillis())) sets the "issued at" claim to the current timestamp.
-     * 5. setExpiration(new Date(System.currentTimeMillis() + 86400000)) sets the "expiration time" claim to 24 hours (86,400,000 milliseconds) in the future.
-     * 6. signWith(getSigningKey(), SignatureAlgorithm.HS256) signs the JWT using the HS256 algorithm and a secret key obtained from the getSigningKey() method, ensuring the token's integrity.
-     * 7. .compact() builds and serializes the JWT into a compact string format.
+     * <p>
+     * 1. It starts building the JWT using Jwts.builder().<p>
+     * 2. setSubject(user.getUsername()) sets the "subject" claim of the JWT to the user's username.<p>
+     * 3. claim("authorities", populateAuthorities(user.getAuthorities())) adds a custom claim named "authorities" containing a comma-separated string of the user's roles/permissions, obtained by calling the populateAuthorities method.<p>
+     * 4. setIssuedAt(new Date(System.currentTimeMillis())) sets the "issued at" claim to the current timestamp.<p>
+     * 5. setExpiration(new Date(System.currentTimeMillis() + 86400000)) sets the "expiration time" claim to 24 hours (86,400,000 milliseconds) in the future.<p>
+     * 6. signWith(getSigningKey(), SignatureAlgorithm.HS256) signs the JWT using the HS256 algorithm and a secret key obtained from the getSigningKey() method, ensuring the token's integrity.<p>
+     * 7. .compact() builds and serializes the JWT into a compact string format.<p>
      */
 //generate Token
     public String generateToken(UserDetails user) {
@@ -78,11 +79,11 @@ public class JwtService {
     /**
      * This Java method extractAllClaims takes a JWT string (token) and extracts all the claims (key-value pairs) it contains.
      * <p>
-     * 1. Jwts.parserBuilder() starts building a JWT parser.
-     * 2. .setSigningKey(getSigningKey()) sets the secret key used to verify the JWT's signature. This ensures that only tokens signed with the correct key can be parsed successfully.
-     * 3. .build() creates the JWT parser.
-     * 4. .parseClaimsJwt(token) parses the provided JWT string and returns a Jws<Claims> object (a signed JWT with its claims).
-     * 5. .getBody() extracts the Claims object from the parsed JWT, which is a map-like structure containing all the claims (including standard ones like "sub", "iat", "exp", and any custom ones).
+     * 1. Jwts.parserBuilder() starts building a JWT parser.<p>
+     * 2. .setSigningKey(getSigningKey()) sets the secret key used to verify the JWT's signature. This ensures that only tokens signed with the correct key can be parsed successfully.<p>
+     * 3. .build() creates the JWT parser.<p>
+     * 4. .parseClaimsJwt(token) parses the provided JWT string and returns a Jws<Claims> object (a signed JWT with its claims).<p>
+     * 5. .getBody() extracts the Claims object from the parsed JWT, which is a map-like structure containing all the claims (including standard ones like "sub", "iat", "exp", and any custom ones).<p>
      */
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
@@ -95,9 +96,9 @@ public class JwtService {
     /**
      * This Java method extractClaims provides a generic way to extract specific information from the claims of a JWT.
      * <p>
-     * 1. It takes a JWT string (token) and a Function<Claims, T> called claimsResolver as input. The Function is a functional interface that accepts a Claims object and returns a value of type T.
-     * 2. final Claims claims = extractAllClaims(token); first calls the extractAllClaims method to get all the claims from the provided token.
-     * 3. return claimsResolver.apply(claims); then applies the provided claimsResolver function to the extracted Claims object. This function will define how to select and return a specific piece of information (of type T) from the claims.
+     * 1. It takes a JWT string (token) and a Function<Claims, T> called claimsResolver as input. The Function is a functional interface that accepts a Claims object and returns a value of type T.<p>
+     * 2. final Claims claims = extractAllClaims(token); first calls the extractAllClaims method to get all the claims from the provided token.<p>
+     * 3. return claimsResolver.apply(claims); then applies the provided claimsResolver function to the extracted Claims object. This function will define how to select and return a specific piece of information (of type T) from the claims.<p>
      */
     public <T> T extractClaims(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
