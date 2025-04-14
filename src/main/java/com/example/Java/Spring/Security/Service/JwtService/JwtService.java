@@ -20,9 +20,9 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    @Value("${secret.key}")
-    static String secretKey;
-    private static final String SECRET_KEY = secretKey;
+//    @Value("${secret.key}")
+//    private String secretKey;
+    private final String SECRET_KEY = "q1X2z7vb9D4l8G1e3R6j0N5p2S9v6Y3f1C8i4U7o2J1m5Z9x3L0g4R8m7K2q3B6";
 
     /**
      * to get signing key (will decode the SECRET_KEY into byte Array)
@@ -64,7 +64,7 @@ public class JwtService {
      * 6. signWith(getSigningKey(), SignatureAlgorithm.HS256) signs the JWT using the HS256 algorithm and a secret key obtained from the getSigningKey() method, ensuring the token's integrity.<p>
      * 7. .compact() builds and serializes the JWT into a compact string format.<p>
      */
-//generate Token
+    //generate Token
     public String generateToken(UserDetails user) {
         return Jwts.builder()
                 .setSubject(user.getUsername())
@@ -89,7 +89,7 @@ public class JwtService {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
