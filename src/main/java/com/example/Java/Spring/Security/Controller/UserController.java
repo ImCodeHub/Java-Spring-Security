@@ -1,5 +1,6 @@
 package com.example.Java.Spring.Security.Controller;
 
+import com.example.Java.Spring.Security.Model.AuthenticationRequest;
 import com.example.Java.Spring.Security.Model.AuthenticationResponse;
 import com.example.Java.Spring.Security.Model.RegisterRequest;
 import com.example.Java.Spring.Security.Service.UserService.UserService;
@@ -17,9 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     @Autowired
     private UserService userService;
+
     @PostMapping("user-register")
     public ResponseEntity<AuthenticationResponse> userRegister(@RequestBody RegisterRequest registerRequest){
         AuthenticationResponse authenticationResponse = userService.saveUser(registerRequest);
         return new ResponseEntity<>(authenticationResponse, HttpStatus.CREATED);
     }
+
+    @PostMapping("login")
+        public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request){
+        AuthenticationResponse authenticate = userService.authenticate(request);
+        return new ResponseEntity<>(authenticate, HttpStatus.FOUND);
+        }
+
 }
