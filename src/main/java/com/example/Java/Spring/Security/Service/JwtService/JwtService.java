@@ -20,9 +20,8 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-//    @Value("${secret.key}")
-//    private String secretKey;
-    private final String SECRET_KEY = "q1X2z7vb9D4l8G1e3R6j0N5p2S9v6Y3f1C8i4U7o2J1m5Z9x3L0g4R8m7K2q3B6";
+    @Value("${secret.key}")
+    private String SECRET_KEY;
 
     /**
      * to get signing key (will decode the SECRET_KEY into byte Array)
