@@ -33,7 +33,8 @@ public class UserService {
                 .lastName(registerRequest.getLastName())
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .role(registerRequest.getRole()).build();
+                .role(registerRequest.getRole())
+                .build();
 
         User savedUser = userRepository.save(user);
         String jwtToken = jwtService.generateToken(user);
